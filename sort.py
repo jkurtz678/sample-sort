@@ -5,7 +5,7 @@ import os
 
 sort_logic_dict = {
     **dict.fromkeys(['kick', 'kik'], "kick"),
-    **dict.fromkeys(['snare', 'snr', 'clap'], "snare"),
+    **dict.fromkeys(['snare', 'snr', 'clap', 'rim'], "snare"),
     **dict.fromkeys(['snap'], "snap"),
     **dict.fromkeys(['tom'], 'tom'),
     **dict.fromkeys(['open', 'ride'], 'open_hat'),
@@ -27,6 +27,7 @@ def move_file(path_to_file, dest):
 
 def sort_files(path_arg):
     num_files_moved = 0
+    num_files_ignored = 0
     num_files_skipped = 0
     for filename in path_arg.rglob("*"): # iterate recursively through all files
         path_to_file = filename.absolute()
@@ -47,7 +48,10 @@ def sort_files(path_arg):
                 num_files_moved += 1
             else:
                 num_files_skipped += 1
+        else: 
+            num_files_ignored += 1
 
+    print("Ignored {0} files because wrong extension".format(num_files_ignored))
     print("Skipped {0} files because already exist".format(num_files_skipped))
     print("Moved {0} files".format(num_files_moved))
             
